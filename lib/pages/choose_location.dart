@@ -35,11 +35,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
     });
   }
 
-  @override
-  void dispose() {
-    print('location widget has been removed');
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

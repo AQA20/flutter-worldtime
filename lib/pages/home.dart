@@ -9,18 +9,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late Map data = {};
 
-  void updateState(newData) {
-    setState(() {
-      data = newData;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context)!.settings.arguments as Map;
 
-    print('rebuilt');
-    print(data['location']);
     // set background
     String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
     Color? bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700];
