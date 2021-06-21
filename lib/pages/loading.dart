@@ -26,7 +26,6 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    print('loading rebuilt');
     return Scaffold(
         backgroundColor: Colors.blue[900],
         body: Center(
