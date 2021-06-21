@@ -11,6 +11,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    print('rebuilt');
     data = (ModalRoute.of(context)!.settings.arguments as Map)['worldTime'];
 
     // set background
@@ -33,11 +34,17 @@ class _HomeState extends State<Home> {
                   label: Text('Edit Location',
                       style: TextStyle(color: Colors.grey[300])),
                   onPressed: () async {
-                    dynamic result = await Navigator.pushNamed(context, '/location');
-                    print(result['worldTime'].location);
+                    dynamic result =
+                        await Navigator.pushNamed(context, '/location');
+
                     setState(() {
-                      data = result['worldTime'];
+                      //data = result['worldTime'];
+
+                      data.location = result['worldTime'].location;
+                      data.time = result['worldTime'].time;
+                      data.isDaytime = result['worldTime'].isDaytime;
                     });
+   
                   },
                 ),
                 SizedBox(

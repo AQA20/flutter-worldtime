@@ -14,7 +14,8 @@ class _LoadingState extends State<Loading> {
     WorldTime worldTime = WorldTime(
         timezone: 'Asia/Amman', location: 'Amman', flag: 'jordan.jpg');
     await worldTime.getTime();
-    Navigator.pushReplacementNamed(context, '/home', arguments: {'worldTime': worldTime});
+    Navigator.pushReplacementNamed(context, '/home',
+        arguments: {'worldTime': worldTime});
   }
 
   @override
@@ -25,6 +26,7 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
+    print('loading rebuilt');
     return Scaffold(
         backgroundColor: Colors.blue[900],
         body: Center(
