@@ -27,12 +27,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   void updateTime(int index) async {
     WorldTime worldTime = locations[index];
     await worldTime.getTime();
-    Navigator.pop(context, {
-      'location': worldTime.location,
-      'flag': worldTime.flag,
-      'isDaytime': worldTime.isDaytime,
-      'time': worldTime.time,
-    });
+    Navigator.pop(context, {'worldTime': worldTime});
   }
 
 

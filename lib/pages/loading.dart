@@ -14,12 +14,7 @@ class _LoadingState extends State<Loading> {
     WorldTime worldTime = WorldTime(
         timezone: 'Asia/Amman', location: 'Amman', flag: 'jordan.jpg');
     await worldTime.getTime();
-    Navigator.pushReplacementNamed(context, '/home', arguments: {
-      'location': worldTime.location,
-      'flag': worldTime.flag,
-      'isDaytime': worldTime.isDaytime,
-      'time': worldTime.time,
-    });
+    Navigator.pushReplacementNamed(context, '/home', arguments: {'worldTime': worldTime});
   }
 
   @override

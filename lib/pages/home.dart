@@ -7,15 +7,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Map data = {};
+  late WorldTime data;
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map;
+    data = (ModalRoute.of(context)!.settings.arguments as Map)['worldTime'];
 
     // set background
-    String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
-    Color? bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700];
+    String bgImage = data.isDaytime ? 'day.png' : 'night.png';
+    Color? bgColor = data.isDaytime ? Colors.blue : Colors.indigo[700];
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -33,9 +33,10 @@ class _HomeState extends State<Home> {
                   label: Text('Edit Location',
                       style: TextStyle(color: Colors.grey[300])),
                   onPressed: () async {
-                    dynamic result = await Navigator.pushNamed(context, '/location') as Map;
+                    dynamic result = await Navigator.pushNamed(context, '/location');
+                    print(result['worldTime'].location);
                     setState(() {
-                      data = result;
+                      data = result['worldTime'];
                     });
                   },
                 ),
@@ -46,7 +47,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      data['location'],
+                      data.location,
                       style: TextStyle(
                           fontSize: 20.0,
                           letterSpacing: 2.0,
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 20.0,
                 ),
-                Text(data['time'],
+                Text(data.time,
                     style: TextStyle(
                       fontSize: 50.00,
                       color: Colors.white,

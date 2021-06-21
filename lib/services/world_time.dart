@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 
 class WorldTime {
-  String baseUrl = 'http://worldtimeapi.org/api/timezone/';
+  String _baseUrl = 'http://worldtimeapi.org/api/timezone/';
   late String location;
   late String flag;
   late String time;
@@ -18,7 +18,7 @@ class WorldTime {
 
   Future<void> getTime() async {
     try {
-      Response response = await get(Uri.parse(baseUrl + timezone));
+      Response response = await get(Uri.parse(_baseUrl + timezone));
       Map data = jsonDecode(response.body);
       String offset = data['utc_offset'].substring(0, 3);
       DateTime now = DateTime.parse(data['datetime']);
