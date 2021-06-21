@@ -27,7 +27,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
   void updateTime(int index) async {
     WorldTime worldTime = locations[index];
     await worldTime.getTime();
-    Navigator.pop(context, {'worldTime': worldTime});
+    if (mounted) {
+      Navigator.pop(context, {'worldTime': worldTime});
+    }
   }
 
 
