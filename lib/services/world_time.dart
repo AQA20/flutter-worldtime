@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
@@ -7,11 +9,8 @@ class WorldTime {
   late String location;
   late String flag;
   late String time;
-  late String error = '';
   late String timezone;
   late bool isDaytime;
-  bool dataFetched = false;
-  bool hasError = false;
 
   WorldTime(
       {required this.location, required this.timezone, required this.flag});
@@ -25,13 +24,8 @@ class WorldTime {
       now = now.add(Duration(hours: int.parse(offset)));
       isDaytime = now.hour > 6 && now.hour < 20 ? true : false;
       time = DateFormat.jm().format(now);
-      dataFetched = true;
-      hasError = false;
     } catch (e) {
-      dataFetched = false;
-      hasError = true;
-      print(e.toString());
-      error = e.toString();
+      throw (e);
     }
   }
 }

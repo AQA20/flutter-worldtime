@@ -9,13 +9,21 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   late WorldTime worldTime;
+  String error = '';
 
   void setupWorlTime() async {
     WorldTime worldTime = WorldTime(
         timezone: 'Asia/Amman', location: 'Amman', flag: 'jordan.jpg');
-    await worldTime.getTime();
-    Navigator.pushReplacementNamed(context, '/home',
-        arguments: {'worldTime': worldTime});
+    try {
+      await worldTime.getTime();
+    } catch (e) {
+      setState(() {
+        error = e.toString();
+      });
+    } finally {
+      Navigator.pushReplacementNamed(context, '/home',
+          arguments: {'worldTime': worldTime});
+    }
   }
 
   @override
@@ -26,13 +34,15 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.blue[900],
-        body: Center(
-          child: SpinKitCircle(
-            color: Colors.white,
-            size: 50.0,
-          ),
-        ));
+    return error.isNotEmpty
+        ? Center(child: Text(error))
+        : Scaffold(
+            backgroundColor: Colors.blue[900],
+            body: Center(
+              child: SpinKitCircle(
+                color: Colors.white,
+                size: 50.0,
+              ),
+            ));
   }
 }

@@ -24,42 +24,51 @@ class _ChooseLocationState extends State<ChooseLocation> {
         timezone: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
   ];
 
+  String error = '';
   void updateTime(int index) async {
     WorldTime worldTime = locations[index];
-    await worldTime.getTime();
-    if (mounted) {
-      Navigator.pop(context, {'worldTime': worldTime});
+    try {
+      await worldTime.getTime();
+    } catch (e) {
+      setState(() {
+        error = e.toString();
+      });
+    } finally {
+      if (mounted) {
+        Navigator.pop(context, {'worldTime': worldTime});
+      }
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: AppBar(
-          backgroundColor: Colors.blue[900],
-          title: Text('Choose a Location'),
-          elevation: 0,
-        ),
-        body: ListView.builder(
-          itemCount: locations.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-              child: Card(
-                  child: ListTile(
-                      onTap: () {
-                        updateTime(index);
-                      },
-                      title: Text(locations[index].location),
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/${locations[index].flag}'),
-                      ))),
-            );
-          },
-        ));
+    return error.isNotEmpty
+        ? Center(child: Text(error))
+        : Scaffold(
+            backgroundColor: Colors.grey[200],
+            appBar: AppBar(
+              backgroundColor: Colors.blue[900],
+              title: Text('Choose a Location'),
+              elevation: 0,
+            ),
+            body: ListView.builder(
+              itemCount: locations.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 1.0, horizontal: 4.0),
+                  child: Card(
+                      child: ListTile(
+                          onTap: () {
+                            updateTime(index);
+                          },
+                          title: Text(locations[index].location),
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/${locations[index].flag}'),
+                          ))),
+                );
+              },
+            ));
   }
 }
