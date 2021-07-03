@@ -39,7 +39,6 @@ class _HomeState extends State<Home> {
                     if (result != null) {
                       setState(() {
                         //data = result['worldTime'];
-
                         data.location = result['worldTime'].location;
                         data.time = result['worldTime'].time;
                         data.isDaytime = result['worldTime'].isDaytime;
